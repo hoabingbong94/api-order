@@ -98,5 +98,7 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 
 return $app;

@@ -11,10 +11,18 @@
 |
 */
 
-//$router->get('/test', function () use ($router) {
-//    return "Hello world";
-//});
 
-$router->get('/users/index', [
-    'as' => 'listUser', 'uses' => 'UsersController@index'
-]);
+
+$router->group(['prefix' => 'api/v1'], function ($router) {
+//    get list user
+    $router->get('/users', 'UsersController@index');
+    $router->post('/create', 'UsersController@create');
+
+//    get slider
+    $router->group(['prefix' => 'slider'], function ($router) {
+        $router->get('/', 'SliderController@index');
+        $router->post('/create', 'SliderController@create');
+        $router->post('/update/{id}', 'SliderController@update');
+    });
+
+});
