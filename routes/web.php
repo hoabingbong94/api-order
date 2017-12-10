@@ -11,7 +11,9 @@
 |
 */
 
-
+$router->get('/', function () {
+    return "HELLO";
+});
 
 $router->group(['prefix' => 'api/v1'], function ($router) {
 //    get list user
@@ -24,5 +26,21 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
         $router->post('/create', 'SliderController@create');
         $router->post('/update/{id}', 'SliderController@update');
     });
+//API get page home
+    $router->group(['prefix' => 'home'], function ($router) {
+        $router->get('/', 'HomeController@index');
+        $router->get('/detail/{id}', 'HomeController@detail');
+        $router->get('/tab/{type}', 'HomeController@tab');
+        $router->get('/tab/{type}', 'HomeController@tab');
+
+//        $router->post('/create', 'SliderController@create');
+//        $router->post('/update/{id}', 'SliderController@update');
+    });
+
+    $router->group(['prefix' => 'order'], function ($router) {
+//        $router->get('/', 'OrderController@index');
+        $router->post('/test', 'OrderController@order');
+    });
+
 
 });

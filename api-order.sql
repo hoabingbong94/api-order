@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th10 28, 2017 lúc 11:03 AM
+-- Thời gian đã tạo: Th12 10, 2017 lúc 01:50 PM
 -- Phiên bản máy phục vụ: 5.7.20-0ubuntu0.16.04.1
 -- Phiên bản PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -30,12 +30,21 @@ CREATE TABLE `dish` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `thumb` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL,
+  `price` float NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `type` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `dish`
+--
+
+INSERT INTO `dish` (`id`, `name`, `thumb`, `price`, `description`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'fish', 'images.jpg', 1000, 'khong', 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00'),
+(2, 'Thit nguoi', 'images01.jpg', 2000, 'an rar ngon', 3, '2017-12-09 17:00:00', '2017-12-09 17:00:00'),
+(3, 'fish ngon', 'images.jpg', 1500, 'khong', 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -68,12 +77,20 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(10) UNSIGNED NOT NULL,
-  `id_table` int(10) UNSIGNED DEFAULT NULL,
   `id_dish` int(10) UNSIGNED DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`id`, `id_dish`, `id_user`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 0, 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00'),
+(2, 2, 0, 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -105,20 +122,6 @@ INSERT INTO `slider` (`id`, `title`, `thumb`, `status`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tables`
---
-
-CREATE TABLE `tables` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `users`
 --
 
@@ -129,7 +132,7 @@ CREATE TABLE `users` (
   `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `role` int(11) NOT NULL,
-  `id_table` int(10) UNSIGNED DEFAULT NULL,
+  `table` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -138,7 +141,7 @@ CREATE TABLE `users` (
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `id_table`, `created_at`, `updated_at`) VALUES
+INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `table`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@gmail.com', '0987548356', '$2y$10$42a7pGorkwRH2VgK8bOAZea9safZV0Y.ecoXvoPXmxZH/.AAC2Mly', 1, 1, NULL, NULL);
 
 --
@@ -170,12 +173,6 @@ ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `tables`
---
-ALTER TABLE `tables`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
@@ -189,7 +186,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `dish`
 --
 ALTER TABLE `dish`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
@@ -199,17 +196,12 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT cho bảng `slider`
 --
 ALTER TABLE `slider`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT cho bảng `tables`
---
-ALTER TABLE `tables`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
