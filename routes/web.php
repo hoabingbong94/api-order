@@ -21,7 +21,7 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
     $router->post('/create', 'UsersController@create');
 
 //    get slider
-    $router->group(['prefix' => 'slider'], function ($router) {
+    $router->group(['prefix' => '/slider'], function ($router) {
         $router->get('/', 'SliderController@index');
         $router->post('/create', 'SliderController@create');
         $router->post('/update/{id}', 'SliderController@update');
@@ -31,7 +31,6 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
         $router->get('/', 'HomeController@index');
         $router->get('/detail/{id}', 'HomeController@detail');
         $router->get('/tab/{type}', 'HomeController@tab');
-        $router->get('/tab/{type}', 'HomeController@tab');
 
 //        $router->post('/create', 'SliderController@create');
 //        $router->post('/update/{id}', 'SliderController@update');
@@ -39,7 +38,7 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
 
     $router->group(['prefix' => 'order'], function ($router) {
 //        $router->get('/', 'OrderController@index');
-        $router->post('/test', 'OrderController@order');
+        $router->post('/', 'OrderController@index');
     });
 
 
