@@ -13,7 +13,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::where(['status' => true])->get();;
+        $sliders = Slider::where(['status' => true])->get();
         $countSlider = count($sliders);
         if (count($sliders) > 0) {
             $data = [

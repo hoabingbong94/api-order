@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th12 10, 2017 lúc 01:50 PM
+-- Thời gian đã tạo: Th12 18, 2017 lúc 10:14 PM
 -- Phiên bản máy phục vụ: 5.7.20-0ubuntu0.16.04.1
 -- Phiên bản PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -76,10 +76,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `orders` (
+  `total` float NOT NULL,
   `id` int(10) UNSIGNED NOT NULL,
-  `id_dish` int(10) UNSIGNED DEFAULT NULL,
-  `id_user` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -88,9 +86,34 @@ CREATE TABLE `orders` (
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `id_dish`, `id_user`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00'),
-(2, 2, 0, 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00');
+INSERT INTO `orders` (`total`, `id`, `created_at`, `updated_at`) VALUES
+(0, 1, '2017-12-09 17:00:00', '2017-12-09 17:00:00'),
+(0, 2, '2017-12-09 17:00:00', '2017-12-09 17:00:00'),
+(0, 3, '2017-12-15 22:39:14', '2017-12-15 22:39:14'),
+(0, 4, '2017-12-15 22:39:14', '2017-12-15 22:39:14'),
+(200, 5, '2017-12-18 21:00:13', '2017-12-18 21:07:31');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `order_detail`
+--
+
+CREATE TABLE `order_detail` (
+  `id` int(11) NOT NULL,
+  `id_order` int(11) NOT NULL,
+  `id_dish` int(11) NOT NULL,
+  `quality` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `order_detail`
+--
+
+INSERT INTO `order_detail` (`id`, `id_order`, `id_dish`, `quality`) VALUES
+(1, 5, 1, 2),
+(2, 5, 2, 3),
+(3, 5, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -118,6 +141,26 @@ INSERT INTO `slider` (`id`, `title`, `thumb`, `status`, `created_at`, `updated_a
 (4, 'image 100', 'phong-canh-thien-nhien-nhat-ban-dam-say-long-nguoi-hinh-anh-3213131771733-1511834806.jpg', 1, '2017-11-28 02:32:00', '2017-11-28 02:32:00'),
 (5, 'image 101', 'phong-canh-thien-nhien-nhat-ban-dam-say-long-nguoi-hinh-anh-3213131771733-1511834806.jpg', 1, '2017-11-28 02:32:07', '2017-11-28 02:32:07'),
 (6, 'image 01', 'phong-canh-thien-nhien-nhat-ban-dam-say-long-nguoi-hinh-anh-3213131771733-1511834806.jpg', 1, '2017-11-28 02:32:18', '2017-11-28 02:32:18');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `table_dinner`
+--
+
+CREATE TABLE `table_dinner` (
+  `id` int(1) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `table_dinner`
+--
+
+INSERT INTO `table_dinner` (`id`, `name`, `status`) VALUES
+(1, 'Bàn 1', 1),
+(2, 'Bàn 2', 0);
 
 -- --------------------------------------------------------
 
@@ -167,9 +210,21 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `slider`
 --
 ALTER TABLE `slider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `table_dinner`
+--
+ALTER TABLE `table_dinner`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -196,12 +251,22 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT cho bảng `order_detail`
+--
+ALTER TABLE `order_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT cho bảng `slider`
 --
 ALTER TABLE `slider`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT cho bảng `table_dinner`
+--
+ALTER TABLE `table_dinner`
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT cho bảng `users`
 --

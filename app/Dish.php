@@ -18,4 +18,8 @@ class Dish extends Model
 
 
     public $timestamps = true;
+    public function dish()
+    {
+        return $this->belongsTo('App\OrderDetail');
+    }
 }

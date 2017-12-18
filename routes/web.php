@@ -31,15 +31,21 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
         $router->get('/', 'HomeController@index');
         $router->get('/detail/{id}', 'HomeController@detail');
         $router->get('/tab/{type}', 'HomeController@tab');
-
-//        $router->post('/create', 'SliderController@create');
-//        $router->post('/update/{id}', 'SliderController@update');
     });
 
     $router->group(['prefix' => 'order'], function ($router) {
+        $router->get('/', 'OrderController@index');
+        $router->post('/update', 'OrderController@update');
+    });
+    $router->group(['prefix' => 'orderdetail'], function ($router) {
 //        $router->get('/', 'OrderController@index');
-        $router->post('/', 'OrderController@index');
+        $router->get('/', 'OrderDetailController@orderdetail');
+        $router->post('/update', 'OrderDetailController@update');
     });
 
-
+    $router->group(['prefix' => 'table'], function ($router) {
+//        $router->get('/', 'OrderController@index');
+        $router->get('/', 'TableDinnerController@index');
+        $router->post('/update', 'TableDinnerController@update');
+    });
 });

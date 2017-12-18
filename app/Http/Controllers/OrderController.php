@@ -11,39 +11,52 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $data = $request->input();
-        if ($data == null) {
-            return response()->json( $data, 0);
-        }
-        if (isset($data['data'])) {
-            $data_list = json_decode($data['data']);
-        }
-        foreach ($data_list->orders as $item) {
-            $order = Order::create([
-                'id_user' => $data_list->id_user,
-                'status' => $data_list->status,
-                'id_dish' => $item->id
-            ]);
+        $order = new Order();
+        $order->total = 0;
+        $idOrder = 0;
+        if ($order->save()) {
+            $idOrder = $order->id;
         }
 
-
-        $countOrder = count($order);
         if (count($order) > 0) {
             $data = [
                 'code' => 0,
-                'message' => 'get list data order success',
-                'total' => $countOrder,
-                'data' => $order
+                'message' => 'get a data order success',
+                'data' => $idOrder
             ];
         } else {
             $data = [
                 'code' => 1,
-                'message' => 'get list data order faild',
-                'total' => $countOrder,
+                'message' => 'get a data order faild',
                 'data' => []
             ];
         }
         return response()->json($data, 200);
+    }
+
+    public function update(Request $request){
+        $data = $request->input();
+        if (isset($data['id']) && isset($data['total'])) {
+            $id = (int) $data['id'];
+            $total = (float) $data['total'];
+            $order = Order::find($id);
+            $order->total = $total;
+            $order->save();
+            if (count($order) > 0) {
+                $data = [
+                    'code' => 0,
+                    'message' => 'get a data order success',
+                    'data' => $order
+                ];
+            } else {
+                $data = [
+                    'code' => 1,
+                    'message' => 'get a data order faild',
+                    'data' => []
+                ];
+            }
+            return response()->json($data, 200);
+        }
     }
 
 

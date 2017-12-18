@@ -4,23 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class TableDinner extends Model
 {
-    public $table = 'orders';
+    public $table = 'table_dinner';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'total'
+        'name', 'status'
     ];
 
-
-    public $timestamps = true;
-
-//    public function user() {
-//        return $this->belongsToMany('user');
-//    }
+    public $timestamps = false;
 }
-
